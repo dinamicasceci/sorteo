@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dinámicas Ceci</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:20px;
+    text-align:center;
+}
+
+.info{
+    background:white;
+    max-width:1000px;
+    margin:auto;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+h1{
+    color:#0a8f3d;
+}
+
+.valor{
+    font-size:24px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.premios{
+    ...
+    padding:10px;
+    margin:10px auto;
+    ...
+}
+
+.contador{
+    font-size:18px;
+    font-weight:bold;
+    margin:10px 0;
+    line-height:1.4;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(55px,1fr));
+    gap:6px;
+    max-width:900px;
+    margin:auto;
+}
+
+.numero{
+    color:white;
+    padding:6px;
+    border-radius:6px;
+    font-size:14px;
+    font-weight:bold;
+    user-select:none;
+    transition:.3s;
+}
+
+.disponible{
+    background:#28a745;
+}
+
+.pendiente{
+    background:#ffc107;
+    color:#000;
+    cursor:not-allowed;
+}
+
+.reservado{
+    background:#dc3545;
+}
+
+.seleccionado{
+    background:#007bff !important;
+}
+
+.leyenda{
+    margin:8px 0;
+    font-size:14px;
+}
+
+.footer{
+    margin-top:25px;
+    font-size:18px;
+    font-weight:bold;
+}
+
+.whatsapp-float{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#25D366;
+    color:white;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    font-size:30px;
+    box-shadow:0 0 10px rgba(0,0,0,.3);
+}
+
+.btn{
+    color:white;
+    border:none;
+    padding:8px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.btn-whatsapp{
+    background:#25D366;
+}
+
+.btn-limpiar{
+    background:#dc3545;
+    margin-left:4px;
+}
+
+.barra-container{
+    max-width:700px;
+    margin:20px auto;
+    background:#ddd;
+    height:35px;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.barra{
+    background:#28a745;
+    width:0%;
+    height:100%;
+    color:white;
+    font-weight:bold;
+    line-height:35px;
+    transition:.5s;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="info">
+
+<h1 id="nombreRifa">🎉 DINÁMICAS CECI 🎉</h1>
+<div id="contadorSorteo"
+style="
+font-size:18px;
+font-weight:bold;
+color:#dc3545;
+margin:10px 0;
+">
+Cargando contador...
+</div>
+<div
+id="mensajeSorteo"
+style="
+display:none;
+background:#fff3cd;
+color:#856404;
+border:2px solid #ffeeba;
+padding:15px;
+margin:15px auto;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+max-width:700px;
+">
+🔒 Las ventas se encuentran cerradas.<br><br>
+🎉 El sorteo comenzará en breve.<br>
+🍀 ¡Mucha suerte para todos los participantes!
+</div>
+<div class="valor">
+💰 Valor por número:
+$<span id="valorNumero">0</span>
+</div>
+
+<div class="premios">
+🥇 $<span id="premio1">0</span> → 2 primeras cifras<br><br>
+🥈 $<span id="premio2">0</span> → 2 cifras del medio<br><br>
+🥉 $<span id="premio3">0</span> → 2 últimas cifras
+</div>
+
+
+<div class="contador">
+
+<p>
+Disponibles:
+<span id="disponibles">0</span>
+
+|
+
+Vendidos:
+<span id="vendidos">0</span>
+</p>
+
+
+<div class="barra-container">
+    <div id="barra" class="barra">
+        0%
+    </div>
+</div>
+
+<div class="leyenda">
+🟢 Disponible &nbsp;&nbsp;&nbsp;
+🔴 Reservado &nbsp;&nbsp;&nbsp;
+🔵 Seleccionado
+</div>
+
+<div style="margin:10px 0;">
+
+    <h3>
+        Seleccionados:
+        <span id="seleccionados">
+            Ninguno
+        </span>
+    </h3>
+
+    <h2 style="color:#0a8f3d;">
+        Total:
+        $<span id="total">0</span>
+    </h2>
+
+    <button
+    id="reservarBtn"
+    class="btn btn-whatsapp">
+        Reservar por WhatsApp
+    </button>
+
+    <button
+    id="limpiarBtn"
+    class="btn btn-limpiar">
+        Limpiar
+    </button>
+
+</div>
+<div style="margin:20px;">
+
+<input
+type="text"
+id="buscador"
+placeholder="Buscar número..."
+style="
+padding:10px;
+width:250px;
+border-radius:8px;
+border:1px solid #ccc;
+">
+
+<br><br>
+
+<label>
+<input
+type="checkbox"
+id="soloDisponibles">
+ Mostrar solo disponibles
+</label>
+
+</div>
+<div id="numeros" class="grid"></div>
+
+<div class="footer">
+📱 Reservas: 312 490 3866
+</div>
+
+</div>
+
+<a
+class="whatsapp-float"
+href="https://wa.me/573124903866"
+target="_blank">
+💬
+</a>
+
+<script>
+
+const whatsapp = "573124903866";
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxGSe3aedIipLnlmgWsXfj_rTSFxVUn0gEA5YKZBNn1qPbfWFiFk0ddVKm5taDxbtki/exec";
+
+let seleccionados = [];
+let config = {};
+
+function actualizarSeleccion(){
+
+    document.getElementById("seleccionados")
+    .innerText =
+    seleccionados.length
+    ? seleccionados.join(", ")
+    : "Ninguno";
+
+    const total =
+    seleccionados.length * 2000;
+
+    document.getElementById("total")
+    .innerText =
+    total.toLocaleString();
+
+}
+
+async function cargarNumeros(){
+
+    try{
+
+        const respuesta = await fetch(API_URL);
+
+const resultado =
+await respuesta.json();
+
+const datos =
+resultado.numeros;
+
+console.log(datos);
+
+config =
+resultado.configuracion;
+if(
+    config.mostrar_contador === "SI"
+){
+const fecha =
+new Date(
+    config.fecha_sorteo
+);
+
+const ahora =
+new Date();
+
+const cierreVentas =
+new Date(
+    fecha.getTime() -
+    (
+        Number(
+            config.cierre_ventas_minutos || 20
+        ) * 60000
+    )
+);
+
+if(ahora >= cierreVentas){
+
+    document.getElementById(
+        "contadorSorteo"
+    ).innerHTML =
+    "🔒 Ventas cerradas";
+
+    document.getElementById(
+        "reservarBtn"
+    ).disabled = true;
+document.getElementById(
+    "mensajeSorteo"
+).style.display = "block";
+    document.getElementById(
+        "reservarBtn"
+    ).style.opacity = "0.5";
+
+    document.getElementById(
+        "reservarBtn"
+    ).innerText =
+    "Ventas cerradas";
+
+    return;
+}
+
+const diferencia =
+fecha - ahora;
+
+    if(diferencia > 0){
+
+        const dias =
+        Math.floor(
+            diferencia /
+            (1000*60*60*24)
+        );
+
+        document.getElementById(
+            "contadorSorteo"
+        ).innerHTML =
+        "⏳ Faltan " +
+        dias +
+        " días para el sorteo";
+    }
+}
+document.getElementById("nombreRifa")
+.innerText =
+config.nombre_rifa || "DINÁMICAS CECI";
+
+document.getElementById("valorNumero")
+.innerText =
+Number(
+config.valor_numero || 2000
+).toLocaleString();
+
+document.getElementById("premio1")
+.innerText =
+Number(
+config.premio1 || 0
+).toLocaleString();
+
+document.getElementById("premio2")
+.innerText =
+Number(
+config.premio2 || 0
+).toLocaleString();
+
+document.getElementById("premio3")
+.innerText =
+Number(
+config.premio3 || 0
+).toLocaleString();
+if(
+config.imagen_fondo &&
+config.imagen_fondo.startsWith("http")
+){
+
+document.body.style.backgroundImage =
+`url('${config.imagen_fondo}')`;
+
+document.body.style.backgroundSize =
+"cover";
+
+document.body.style.backgroundPosition =
+"center";
+
+document.body.style.backgroundAttachment =
+"fixed";
+} 
+
+if(config.mostrar_contador === "SI"){
+
+const fechaSorteo =
+new Date(config.fecha_sorteo);
+
+const cierreMinutos =
+Number(
+config.cierre_ventas_minutos || 30
+);
+
+if(!window.contadorActivo){
+
+window.contadorActivo = true;
+
+setInterval(()=>{
+
+const ahora =
+new Date();
+
+const cierreVentas =
+new Date(
+fechaSorteo.getTime() -
+(cierreMinutos * 60000)
+);
+
+const diferencia =
+cierreVentas - ahora;
+
+if(diferencia <= 0){
+
+document.getElementById(
+"contadorSorteo"
+).innerHTML =
+"🔒 Ventas cerradas";
+
+document.getElementById(
+"reservarBtn"
+).disabled = true;
+
+document.getElementById(
+"reservarBtn"
+).style.opacity = "0.5";
+
+document.getElementById(
+"reservarBtn"
+).innerText =
+"Ventas cerradas";
+
+return;
+
+}
+
+const dias =
+Math.floor(
+diferencia / 86400000
+);
+
+const horas =
+Math.floor(
+(diferencia % 86400000)
+/ 3600000
+);
+
+const minutos =
+Math.floor(
+(diferencia % 3600000)
+/ 60000
+);
+
+const segundos =
+Math.floor(
+(diferencia % 60000)
+/ 1000
+);
+
+document.getElementById(
+"contadorSorteo"
+).innerHTML =
+`⏳ Cierre de ventas en:
+${dias}d
+${horas}h
+${minutos}m
+${segundos}s`;
+
+},1000);
+
+}
+}
+
+const contenedor =
+document.getElementById("numeros");
+
+contenedor.innerHTML = "";
+
+let disponibles = 0;
+let vendidos = 0;
+
+datos.forEach(item => {
+
+            const numeroFormateado =
+            String(item.numero)
+            .padStart(2,"0");
+
+            const div =
+            document.createElement("div");
+
+            div.innerText =
+            numeroFormateado;
+
+            if(
+    String(item.estado)
+    .toLowerCase()
+    === "reservado"
+){
+
+    div.className =
+    "numero reservado";
+
+    vendidos++;
+
+}else if(
+    String(item.estado)
+    .toLowerCase()
+    === "pendiente"
+){
+
+    div.className =
+    "numero pendiente";
+
+}else{
+
+    disponibles++;
+
+    div.className =
+    "numero disponible";
+
+    if(
+        seleccionados.includes(
+            numeroFormateado
+        )
+    ){
+        div.classList.add(
+            "seleccionado"
+        );
+    }
+
+    div.onclick = () => {
+// Verificar si las ventas están cerradas
+const fechaSorteo =
+new Date(config.fecha_sorteo);
+
+const cierreVentas =
+new Date(
+    fechaSorteo.getTime() -
+    (
+        Number(
+            config.cierre_ventas_minutos || 20
+        ) * 60000
+    )
+);
+
+if(new Date() >= cierreVentas){
+
+    alert(
+    "🔒 Las ventas están cerradas.\n\n" +
+    "El sorteo está próximo a comenzar."
+    );
+
+    return;
+
+}
+        if(
+            seleccionados.includes(
+                numeroFormateado
+            )
+        ){
+
+            seleccionados =
+            seleccionados.filter(
+                n => n !== numeroFormateado
+            );
+
+            div.classList.remove(
+                "seleccionado"
+            );
+
+        }else{
+
+            seleccionados.push(
+                numeroFormateado
+            );
+
+            div.classList.add(
+                "seleccionado"
+            );
+
+        }
+
+        actualizarSeleccion();
+
+    };
+
+}
+
+            contenedor.appendChild(div);
+
+        });
+console.log("Disponibles:", disponibles);
+console.log("Vendidos:", vendidos);
+        document.getElementById("disponibles")
+        .innerText = disponibles;
+
+        document.getElementById("vendidos")
+        .innerText = vendidos;
+
+        const porcentaje =
+        (vendidos / datos.length) * 100;
+
+        document.getElementById("barra")
+        .style.width =
+        porcentaje + "%";
+
+        document.getElementById("barra")
+        .innerText =
+        Math.round(porcentaje) + "%";
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        alert(
+        "Error al leer los números desde Google Sheets."
+        );
+
+    }
+
+}
+
+document
+.getElementById("reservarBtn")
+.addEventListener("click", async ()=>{
+
+    if(
+        seleccionados.length === 0
+    ){
+        alert(
+        "Seleccione al menos un número"
+        );
+        return;
+    }
+
+    const total =
+seleccionados.length * 2000;
+
+const nombre = "";
+const telefono = "";
+
+let mensaje =
+`Hola.
+
+Deseo reservar los siguientes números:
+
+🎟️ ${seleccionados.join(", ")}
+
+💰 Total:
+$${total.toLocaleString()}
+
+⏰ Entiendo que la reserva es temporal y dispongo de 20 minutos para enviar el comprobante de pago.
+`;
+
+    alert(`
+✅ Números apartados para reserva.
+
+⏰ Tienes 20 minutos para realizar el pago.
+
+Si el pago no es confirmado dentro de ese tiempo, los números podrán ser liberados.
+
+📲 Serás dirigido a WhatsApp para finalizar tu reserva.
+`);
+for(const numero of seleccionados){
+
+    await fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            accion:"actualizarNumero",
+
+            numero:numero,
+
+            estado:"Pendiente",
+
+            nombre:nombre,
+
+            telefono:telefono
+
+        })
+
+    });
+
+}
+    window.open(
+        `https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`,
+        "_blank"
+    );
+
+});
+
+document
+.getElementById("limpiarBtn")
+.addEventListener("click",()=>{
+
+    seleccionados = [];
+
+    document
+    .querySelectorAll(".numero")
+    .forEach(div=>{
+
+        div.classList.remove(
+            "seleccionado"
+        );
+
+    });
+
+    actualizarSeleccion();
+
+});
+document
+.getElementById("buscador")
+.addEventListener("input",function(){
+
+const texto =
+this.value.trim();
+
+document
+.querySelectorAll(".numero")
+.forEach(div=>{
+
+if(
+texto === "" ||
+div.innerText.includes(texto)
+){
+div.style.display="block";
+}else{
+div.style.display="none";
+}
+
+});
+
+});document
+.getElementById("soloDisponibles")
+.addEventListener("change",function(){
+
+const activo =
+this.checked;
+
+document
+.querySelectorAll(".numero")
+.forEach(div=>{
+
+if(!activo){
+
+div.style.display="block";
+return;
+
+}
+
+if(
+div.classList.contains(
+"reservado"
+)
+){
+div.style.display="none";
+}else{
+div.style.display="block";
+}
+
+});
+
+});
+cargarNumeros();
+
+setInterval(
+    cargarNumeros,
+    30000
+);
+
+</script>
+
+</body>
+</html>
