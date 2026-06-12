@@ -679,47 +679,7 @@ console.log("Vendidos:", vendidos);
 
 }
 
-document
-.getElementById("reservarBtn")
-.addEventListener("click", async ()=>{
 
-    if(
-        seleccionados.length === 0
-    ){
-        alert(
-        "Seleccione al menos un número"
-        );
-        return;
-    }
-
-    const total =
-seleccionados.length * 2000;
-
-const nombre = "";
-const telefono = "";
-
-let mensaje =
-`Hola.
-
-Deseo reservar los siguientes números:
-
-🎟️ ${seleccionados.join(", ")}
-
-💰 Total:
-$${total.toLocaleString()}
-
-⏰ Entiendo que la reserva es temporal y dispongo de 20 minutos para enviar el comprobante de pago.
-`;
-
-    alert(`
-✅ Números apartados para reserva.
-
-⏰ Tienes 20 minutos para realizar el pago.
-
-Si el pago no es confirmado dentro de ese tiempo, los números podrán ser liberados.
-
-📲 Serás dirigido a WhatsApp para finalizar tu reserva.
-`);
 for(const numero of seleccionados){
 
     await fetch(API_URL,{
@@ -828,8 +788,177 @@ setInterval(
     cargarNumeros,
     30000
 );
+function cerrarModal(){
 
+document.getElementById(
+"modalReserva"
+).style.display =
+"none";
+
+}
+
+async function enviarReserva(){
+
+const nombre =
+document.getElementById(
+"nombreCliente"
+).value.trim();
+
+const telefono =
+document.getElementById(
+"telefonoCliente"
+).value.trim();
+
+if(!nombre || !telefono){
+
+alert(
+"Debe ingresar nombre y WhatsApp"
+);
+
+return;
+
+}
+
+const total =
+seleccionados.length * 2000;
+
+for(const numero of seleccionados){
+
+await fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+accion:"actualizarNumero",
+
+numero:numero,
+
+estado:"Pendiente",
+
+nombre:nombre,
+
+telefono:telefono
+
+})
+
+});
+
+}
+
+let mensaje =
+`Hola.
+
+Mi nombre es ${nombre}
+
+WhatsApp: ${telefono}
+
+Deseo reservar los siguientes números:
+
+🎟️ ${seleccionados.join(", ")}
+
+💰 Total:
+$${total.toLocaleString()}
+
+⏰ Entiendo que la reserva es temporal y dispongo de 20 minutos para enviar el comprobante de pago.
+`;
+
+alert(`
+✅ Números apartados para reserva.
+
+⏰ Tienes 20 minutos para realizar el pago.
+
+📲 Serás dirigido a WhatsApp para finalizar tu reserva.
+`);
+
+window.open(
+`https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`,
+"_blank"
+);
+
+cerrarModal();
+
+seleccionados = [];
+
+actualizarSeleccion();
+
+cargarNumeros();
+
+}
 </script>
+<div id="modalReserva" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+justify-content:center;
+align-items:center;
+z-index:9999;
+">
 
+<div style="
+background:white;
+padding:20px;
+border-radius:12px;
+width:90%;
+max-width:400px;
+text-align:left;
+">
+
+<h2>🎟️ Confirmar Reserva</h2>
+
+<p>
+<strong>Números:</strong>
+<span id="modalNumeros"></span>
+</p>
+
+<p>
+<strong>Total:</strong>
+$<span id="modalTotal"></span>
+</p>
+
+<input
+id="nombreCliente"
+placeholder="Nombre y Apellido"
+style="width:100%;padding:10px;margin-bottom:10px;">
+
+<input
+id="telefonoCliente"
+placeholder="WhatsApp"
+style="width:100%;padding:10px;margin-bottom:15px;">
+
+<button
+onclick="enviarReserva()"
+style="
+width:100%;
+background:#25D366;
+color:white;
+padding:12px;
+border:none;
+border-radius:8px;
+">
+📲 Enviar Reserva
+</button>
+
+<br><br>
+
+<button
+onclick="cerrarModal()"
+style="
+width:100%;
+background:#dc3545;
+color:white;
+padding:12px;
+border:none;
+border-radius:8px;
+">
+Cancelar
+</button>
+
+</div>
+</div>
 </body>
 </html>
