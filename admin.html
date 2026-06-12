@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="es">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>   
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Administración</title>
+
+<style>
+    #tablaCompras{
+    width:100%;
+    border-collapse:collapse;
+}
+
+#tablaCompras th,
+#tablaCompras td{
+    border:1px solid #ccc;
+    padding:8px;
+    text-align:center;
+}
+
+#tablaCompras th{
+    background:#0a8f3d;
+    color:white;
+}
+
+#tablaCompras tr:nth-child(even){
+    background:#f8f9fa;
+}
+
+#tablaCompras tr:hover{
+    background:#e8f5e9;
+}
+.config-grid{
+
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
+
+}
+
+.config-grid .card{
+
+    flex:1;
+
+}
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:12px;
+    border:2px solid #dfe6e9;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+h1,h2{
+    color:#0a8f3d;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(40px,40px));
+    gap:4px;
+}
+
+.numero{
+
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+
+    width:40px;
+    height:30px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:5px;
+
+    font-size:11px;
+
+    padding:0;
+
+}
+
+.disponible{
+    background:#28a745;
+}
+
+.reservado{
+    background:#dc3545;
+}
+
+.pendiente{
+    background:#ffc107;
+    color:#000;
+    cursor:pointer;
+}
+
+input,
+select{
+
+    padding:10px;
+    width:350px;
+    margin-bottom:10px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    box-sizing:border-box;
+
+}
+
+input,
+select{
+
+    padding:10px;
+    width:350px;
+    margin-bottom:10px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    box-sizing:border-box;
+
+}
+
+label{
+
+    display:block;
+    font-weight:bold;
+    margin-top:10px;
+    margin-bottom:5px;
+
+}
+
+button{
+
+    background:#0a8f3d;
+    color:white;
+    border:none;
+    padding:10px 15px;
+    border-radius:6px;
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    opacity:.9;
+
+}
+.config-grid{
+
+    display:flex;
+    gap:10px;
+    align-items:stretch;
+
+}
+
+.config-grid .card:first-child{
+
+    box-shadow:
+    inset -3px 0 0 #0a8f3d,
+    0 2px 8px rgba(0,0,0,.08);
+
+}
+.config-grid .card{
+
+    flex:1;
+    margin-bottom:0;
+
+}
+</style>
+</head>
+<body>
+
+<h1>🎯 Panel Administración</h1>
+
+<button onclick="exportarPDF()">
+📄 Exportar PDF
+</button>
+<button
+onclick="cerrarSorteo()"
+style="background:#dc3545;margin-left:10px;">
+🏆 Cerrar Sorteo y Nueva Rifa
+</button>
+<br><br>
+
+<div class="card">
+
+<h2>Estadísticas</h2>
+
+<p>
+Vendidos:
+<strong id="vendidos">0</strong>
+</p>
+
+<p>
+Disponibles:
+<strong id="disponibles">0</strong>
+</p>
+
+</div>
+<div class="config-grid">
+
+    <div class="card">
+
+        <h2>🎁 Datos de la Rifa</h2>
+
+        <label>Nombre de la Rifa</label>
+        <input id="nombre_rifa">
+
+        <label>Valor por Número ($)</label>
+        <input id="valor_numero" type="number">
+
+        <label>🥇 Primer Premio ($)</label>
+        <input id="premio1" type="number">
+
+        <label>🥈 Segundo Premio ($)</label>
+        <input id="premio2" type="number">
+
+        <label>🥉 Tercer Premio ($)</label>
+        <input id="premio3" type="number">
+
+    </div>
+
+    <div class="card">
+
+        <h2>🎰 Sorteo y Apariencia</h2>
+
+        <label>📅 Fecha y Hora del Sorteo</label>
+        <input
+        id="fecha_sorteo"
+        type="datetime-local">
+
+        <label>🎰 Lotería del Sorteo</label>
+        <select id="loteria">
+
+            <option value="">
+            Seleccione una lotería
+            </option>
+
+            <option value="Lotería del Valle">
+            Lotería del Valle
+            </option>
+
+            <option value="Chontico Noche">
+            Chontico Noche
+            </option>
+
+            <option value="Cafeterito Noche">
+            Cafeterito Noche
+            </option>
+
+            <option value="Sinuano Noche">
+            Sinuano Noche
+            </option>
+
+        </select>
+
+        <label>🖼️ Imagen de Fondo</label>
+        <input
+        id="imagen_fondo"
+        placeholder="https://tu-imagen.jpg">
+
+        <br><br>
+
+        <button onclick="guardarConfig()">
+        💾 Guardar Configuración
+        </button>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+<h2>Números</h2>
+
+<input
+id="buscar"
+placeholder="Buscar número">
+
+<div id="numeros" class="grid"></div>
+
+</div>
+
+<!-- PEGA DESDE AQUÍ -->
+
+<div class="card">
+
+    <h2>🛒 Compras Registradas</h2>
+
+    <table id="tablaCompras" style="width:100%; border-collapse:collapse;">
+
+        <thead>
+            <tr style="background:#0a8f3d;color:white;">
+    <th>Número</th>
+    <th>Nombre</th>
+    <th>WhatsApp</th>
+    <th>Fecha</th>
+    <th>Estado</th>
+    <th>Acción</th>
+</tr>
+        </thead>
+
+        <tbody></tbody>
+
+    </table>
+
+</div>
+
+<!-- HASTA AQUÍ -->
+
+<script>
+
+const clave =
+prompt("Ingrese contraseña");
+
+if(clave !== "123"){
+    document.body.innerHTML =
+    "<h1>Acceso Denegado</h1>";
+    throw new Error();
+}
+
+/* CAMBIA ESTA URL */
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxGSe3aedIipLnlmgWsXfj_rTSFxVUn0gEA5YKZBNn1qPbfWFiFk0ddVKm5taDxbtki/exec";
+
+let configuracion = {};
+
+async function cargarDatos(){
+
+const respuesta =
+await fetch(API_URL);
+
+const resultado =
+await respuesta.json();
+
+const datos =
+resultado.numeros;
+
+configuracion =
+resultado.configuracion;
+
+document.getElementById("nombre_rifa")
+.value =
+configuracion.nombre_rifa || "";
+
+document.getElementById("valor_numero")
+.value =
+configuracion.valor_numero || "";
+
+document.getElementById("premio1")
+.value =
+configuracion.premio1 || "";
+
+document.getElementById("premio2")
+.value =
+configuracion.premio2 || "";
+
+document.getElementById("premio3")
+.value =
+configuracion.premio3 || "";
+
+document.getElementById("fecha_sorteo")
+.value =
+configuracion.fecha_sorteo || "";
+
+document.getElementById("loteria")
+.value =
+configuracion.loteria || "";
+
+document.getElementById("imagen_fondo")
+.value =
+configuracion.imagen_fondo || "";
+
+const contenedor =
+document.getElementById("numeros");
+
+contenedor.innerHTML = "";
+
+let vendidos = 0;
+let disponibles = 0;
+
+datos.forEach(item=>{
+
+const numero =
+String(item.numero)
+.padStart(2,"0");
+
+const div =
+document.createElement("div");
+
+div.innerText = numero;
+
+if(
+String(item.estado)
+.toLowerCase()
+==="reservado"
+){
+
+    div.className =
+    "numero reservado";
+
+    vendidos++;
+
+}else if(
+String(item.estado)
+.toLowerCase()
+==="pendiente"
+){
+
+    div.className =
+    "numero pendiente";
+
+}else{
+
+    div.className =
+    "numero disponible";
+
+    disponibles++;
+
+}
+
+div.onclick =
+()=>cambiarEstado(
+numero,
+item.estado
+);
+
+contenedor.appendChild(div);
+
+});
+
+document.getElementById("vendidos")
+.innerText =
+vendidos;
+
+document.getElementById("disponibles")
+.innerText =
+disponibles;
+const tbody =
+document.querySelector("#tablaCompras tbody");
+
+tbody.innerHTML = "";
+
+datos.forEach(item => {
+
+    if(
+        String(item.estado).toLowerCase() === "reservado"
+        ||
+        String(item.estado).toLowerCase() === "pendiente"
+    ){
+
+        const fila =
+        document.createElement("tr");
+
+       fila.innerHTML = `
+    <td>${String(item.numero).padStart(2,"0")}</td>
+    <td>${item.nombre || ""}</td>
+    <td>${item.telefono || ""}</td>
+    <td>${item.fechaHora || ""}</td>
+    <td>${item.estado}</td>
+    <td>
+        ${
+            String(item.estado).toLowerCase() === "pendiente"
+            ?
+            `<button onclick="confirmarPago('${String(item.numero).padStart(2,"0")}')">
+            ✅ Confirmar
+            </button>`
+            :
+            "✔"
+        }
+    </td>
+`;
+
+        tbody.appendChild(fila);
+
+    }
+
+});
+}
+
+async function cambiarEstado(
+numero,
+estado
+){
+
+    let nuevoEstado =
+    estado.toLowerCase() === "reservado"
+    ? "Disponible"
+    : "Reservado";
+
+    let nombre = "";
+    let telefono = "";
+
+    if(nuevoEstado === "Reservado"){
+
+        nombre = prompt(
+        "👤 Nombre del comprador:"
+        );
+
+        if(nombre === null){
+            return;
+        }
+
+        telefono = prompt(
+        "📱 Número de WhatsApp:"
+        );
+
+        if(telefono === null){
+            return;
+        }
+
+    }
+
+    await fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            accion:"actualizarNumero",
+
+            numero:numero,
+
+            estado:nuevoEstado,
+
+            nombre:nombre,
+
+            telefono:telefono
+
+        })
+
+    });
+
+    cargarDatos();
+
+}
+
+async function confirmarPago(numero){
+
+    if(
+        !confirm(
+        "¿Confirmar pago del número " +
+        numero + "?"
+        )
+    ){
+        return;
+    }
+
+    await fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            accion:"actualizarNumero",
+
+            numero:numero,
+
+            estado:"Reservado",
+
+            nombre:"",
+            telefono:""
+
+        })
+
+    });
+
+    alert(
+    "✅ Pago confirmado"
+    );
+
+cargarDatos();
+
+}
+
+async function guardarConfig(){
+
+const config = {
+
+nombre_rifa:
+document.getElementById(
+"nombre_rifa"
+).value,
+
+valor_numero:
+document.getElementById(
+"valor_numero"
+).value,
+
+premio1:
+document.getElementById(
+"premio1"
+).value,
+
+premio2:
+document.getElementById(
+"premio2"
+).value,
+
+premio3:
+document.getElementById(
+"premio3"
+).value,
+
+fecha_sorteo:
+document.getElementById(
+"fecha_sorteo"
+).value,
+
+loteria:
+document.getElementById(
+"loteria"
+).value,
+
+imagen_fondo:
+document.getElementById(
+"imagen_fondo"
+).value
+
+};
+
+await fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+accion:"guardarConfig",
+
+config:config
+
+})
+
+});
+
+alert("Configuración guardada");
+
+}
+
+document
+.getElementById("buscar")
+.addEventListener(
+"input",
+function(){
+
+const texto =
+this.value;
+
+document
+.querySelectorAll(".numero")
+.forEach(div=>{
+
+if(
+texto === ""
+||
+div.innerText.includes(texto)
+){
+div.style.display="block";
+}else{
+div.style.display="none";
+}
+
+});
+
+});
+async function exportarPDF(){
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+
+    doc.text(
+        "DINÁMICAS CECI",
+        14,
+        20
+    );
+
+    const filas = [];
+
+    document
+    .querySelectorAll(
+        "#tablaCompras tbody tr"
+    )
+    .forEach(tr=>{
+
+        const celdas =
+        tr.querySelectorAll("td");
+
+        filas.push([
+            celdas[0]?.innerText || "",
+            celdas[1]?.innerText || "",
+            celdas[2]?.innerText || "",
+            celdas[3]?.innerText || "",
+            celdas[4]?.innerText || ""
+        ]);
+
+    });
+
+    doc.autoTable({
+
+        startY:30,
+
+        head:[[
+            "Número",
+            "Nombre",
+            "WhatsApp",
+            "Fecha",
+            "Estado"
+        ]],
+
+        body:filas
+
+    });
+
+    doc.save(
+        "Compras_Dinamicas_Ceci.pdf"
+    );
+
+}
+cargarDatos();
+
+setInterval(
+cargarDatos,
+30000
+);
+async function cerrarSorteo(){
+
+    const confirmar =
+    confirm(
+    "¿Desea cerrar esta rifa?\n\n" +
+    "✔ Se exportará el PDF.\n" +
+    "✔ Se guardará el historial.\n" +
+    "✔ Todos los números volverán a Disponible."
+    );
+
+    if(!confirmar){
+        return;
+    }
+
+    // Generar PDF automáticamente
+    exportarPDF();
+
+    // Esperar un momento para que inicie la descarga
+    await new Promise(r =>
+        setTimeout(r,1500)
+    );
+
+    // Solicitar reinicio al Apps Script
+    await fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            accion:"cerrarSorteo"
+
+        })
+
+    });
+
+    alert(
+    "✅ Sorteo cerrado correctamente.\n\n" +
+    "Se creó el historial y ya está lista la nueva rifa."
+    );
+
+    cargarDatos();
+
+}
+</script>
+
+</body>
+</html>
