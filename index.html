@@ -242,13 +242,40 @@ Vendidos:
         Reservar por WhatsApp
     </button>
 
-    <button
-    id="limpiarBtn"
-    class="btn btn-limpiar">
-        Limpiar
-    </button>
+<button
+id="limpiarBtn"
+class="btn btn-limpiar">
+    Limpiar
+</button>
+
+<select
+id="cantidadAzar"
+style="
+padding:10px;
+margin-left:10px;
+border-radius:8px;
+border:1px solid #ccc;
+">
+    <option value="1">1 🎲</option>
+    <option value="5">5 🎲</option>
+    <option value="10">10 🎲</option>
+    <option value="15">15 🎲</option>
+    <option value="20">20 🎲</option>
+</select>
+
+<button
+id="azarBtn"
+class="btn"
+style="
+background:#007bff;
+color:white;
+margin-left:5px;
+">
+🎲 Al azar
+</button>
 
 </div>
+
 <div style="margin:20px;">
 
 <input
@@ -296,7 +323,66 @@ const API_URL =
 
 let seleccionados = [];
 let config = {};
+function seleccionarAlAzar(){
 
+    // Limpiar selección anterior
+    seleccionados = [];
+
+    // Obtener cantidad elegida
+    const cantidad =
+    Number(
+        document.getElementById(
+            "cantidadAzar"
+        ).value
+    );
+
+    // Obtener números disponibles
+    const disponibles = [];
+
+    document
+    .querySelectorAll(
+        "#numeros .numero"
+    )
+    .forEach(div => {
+
+        if(
+            div.classList.contains(
+                "disponible"
+            )
+        ){
+            disponibles.push(div);
+        }
+
+    });
+
+    if(
+        disponibles.length <
+        cantidad
+    ){
+        alert(
+        "No hay suficientes números disponibles."
+        );
+        return;
+    }
+
+    // Mezclar aleatoriamente
+    disponibles.sort(
+        () => Math.random() - 0.5
+    );
+
+    // Seleccionar
+    for(
+        let i=0;
+        i<cantidad;
+        i++
+    ){
+
+        disponibles[i]
+        .click();
+
+    }
+
+}
 function actualizarSeleccion(){
 
     document.getElementById("seleccionados")
@@ -676,6 +762,13 @@ document
     });
 
     actualizarSeleccion();
+
+});
+    document
+.getElementById("azarBtn")
+.addEventListener("click",()=>{
+
+    seleccionarAlAzar();
 
 });
 document
