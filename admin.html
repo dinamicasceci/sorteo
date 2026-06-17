@@ -738,17 +738,12 @@ cargarDatos,
 );
 async function cerrarSorteo(){
 
-    const confirmar =
-    confirm(
-    "¿Desea cerrar esta rifa?\n\n" +
-    "✔ Se exportará el PDF.\n" +
-    "✔ Se guardará el historial.\n" +
-    "✔ Todos los números volverán a Disponible."
+    window.open(
+      API_URL + "?accion=cerrarSorteo",
+      "_blank"
     );
 
-    if(!confirmar){
-        return;
-    }
+}
     // Generar PDF automáticamente
     exportarPDF();
 
