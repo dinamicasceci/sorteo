@@ -913,7 +913,64 @@ window.open(
 cerrarModal();
 
 }
+    function actualizarBotonReserva(){
+
+    const nombre =
+    document.getElementById(
+        "nombreCliente"
+    ).value.trim();
+
+    const telefono =
+    document.getElementById(
+        "telefonoCliente"
+    ).value.trim();
+
+    const boton =
+    document.getElementById(
+        "btnEnviarReserva"
+    );
+
+    if(
+        nombre !== "" &&
+        telefono !== "" &&
+        seleccionados.length > 0
+    ){
+
+        boton.style.background =
+        "#00b050";
+
+        boton.style.boxShadow =
+        "0 0 12px #00b050";
+
+    }else{
+
+        boton.style.background =
+        "#c5d6cb";
+
+        boton.style.boxShadow =
+        "none";
+
+    }
+
+}
 </script>
+    document
+.getElementById(
+    "nombreCliente"
+)
+.addEventListener(
+    "input",
+    actualizarBotonReserva
+);
+
+document
+.getElementById(
+    "telefonoCliente"
+)
+.addEventListener(
+    "input",
+    actualizarBotonReserva
+);
 <div id="modalReserva" style="
 display:none;
 position:fixed;
@@ -972,6 +1029,7 @@ box-sizing:border-box;
 ">
 
 <button
+id="btnEnviarReserva"
 onclick="enviarReserva()"
 style="
 width:100%;
@@ -981,6 +1039,7 @@ color:white;
 border:none;
 border-radius:8px;
 font-size:14px;
+transition:0.3s;
 ">
 📲 Enviar Reserva
 </button>
