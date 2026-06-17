@@ -333,7 +333,8 @@ if(clave !== "123"){
 /* CAMBIA ESTA URL */
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzhLKi2XyNGb7uGoa4_hpVicvvuw8wS9PdOVwa9uWx3Z2RdVubTHp78c8M2EHVO5x2m/exec";
+"https://script.google.com/macros/s/AKfycbxGSe3aedIipLnlmgWsXfj_rTSFxVUn0gEA5YKZBNn1qPbfWFiFk0ddVKm5taDxbtki/exec";
+
 let configuracion = {};
 
 async function cargarDatos(){
@@ -749,6 +750,7 @@ async function cerrarSorteo(){
     if(!confirmar){
         return;
     }
+
     // Generar PDF automáticamente
     exportarPDF();
 
@@ -758,21 +760,17 @@ async function cerrarSorteo(){
     );
 
     // Solicitar reinicio al Apps Script
-const respuesta = await fetch(API_URL,{
+    await fetch(API_URL,{
 
-    method:"POST",
+        method:"POST",
 
-    body:JSON.stringify({
+        body:JSON.stringify({
 
-        accion:"cerrarSorteo"
+            accion:"cerrarSorteo"
 
-    })
+        })
 
-});
-
-console.log("RESPUESTA:", respuesta.status);
-
-alert("Estado de respuesta: " + respuesta.status);
+    });
 
     alert(
     "✅ Sorteo cerrado correctamente.\n\n" +
