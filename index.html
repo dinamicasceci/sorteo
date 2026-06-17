@@ -703,7 +703,7 @@ total.toLocaleString();
 
 document.getElementById("modalReserva")
 .style.display = "flex";
-
+actualizarBotonReserva();
 return;
 
     alert(`
@@ -953,6 +953,19 @@ cerrarModal();
     }
 
 }
+ document
+.getElementById("nombreCliente")
+.addEventListener(
+    "input",
+    actualizarBotonReserva
+);
+
+document
+.getElementById("telefonoCliente")
+.addEventListener(
+    "input",
+    actualizarBotonReserva
+);   
 </script>
     document
 .getElementById(
