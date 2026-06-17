@@ -736,19 +736,6 @@ setInterval(
 cargarDatos,
 30000
 );
-async function cerrarSorteo(){
-
-    const confirmar =
-    confirm(
-    "¿Desea cerrar esta rifa?\n\n" +
-    "✔ Se exportará el PDF.\n" +
-    "✔ Se guardará el historial.\n" +
-    "✔ Todos los números volverán a Disponible."
-    );
-
-    if(!confirmar){
-        return;
-    }
 
     // Generar PDF automáticamente
     exportarPDF();
