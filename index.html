@@ -324,9 +324,19 @@ let seleccionados = [];
 let config = {};
 function seleccionarAlAzar(){
 
-    // Limpiar selección anterior
-    seleccionados = [];
+   // Limpiar selección anterior
+seleccionados = [];
 
+document
+.querySelectorAll(".numero")
+.forEach(div=>{
+
+    div.classList.remove(
+        "seleccionado"
+    );
+
+});
+actualizarSeleccion();
     // Obtener cantidad elegida
     const cantidad =
     Number(
@@ -370,16 +380,22 @@ function seleccionarAlAzar(){
     );
 
     // Seleccionar
-    for(
-        let i=0;
-        i<cantidad;
-        i++
-    ){
+for(
+    let i=0;
+    i<cantidad;
+    i++
+){
 
-        disponibles[i]
-        .click();
+    disponibles[i]
+    .click();
 
-    }
+}
+
+alert(
+    "🎲 Se seleccionaron " +
+    cantidad +
+    " números al azar"
+);
 
 }
 function actualizarSeleccion(){
