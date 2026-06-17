@@ -930,6 +930,10 @@ cerrarModal();
         "btnEnviarReserva"
     );
 
+    if(!boton){
+        return;
+    }
+
     if(
         nombre !== "" &&
         telefono !== "" &&
@@ -953,37 +957,6 @@ cerrarModal();
     }
 
 }
- document
-.getElementById("nombreCliente")
-.addEventListener(
-    "input",
-    actualizarBotonReserva
-);
-
-document
-.getElementById("telefonoCliente")
-.addEventListener(
-    "input",
-    actualizarBotonReserva
-);   
-</script>
-    document
-.getElementById(
-    "nombreCliente"
-)
-.addEventListener(
-    "input",
-    actualizarBotonReserva
-);
-
-document
-.getElementById(
-    "telefonoCliente"
-)
-.addEventListener(
-    "input",
-    actualizarBotonReserva
-);
 <div id="modalReserva" style="
 display:none;
 position:fixed;
@@ -1021,6 +994,7 @@ $<span id="modalTotal"></span>
 
 <input
 id="nombreCliente"
+oninput="actualizarBotonReserva()"
 placeholder="Nombre y Apellido"
 style="
 width:100%;
@@ -1032,6 +1006,7 @@ box-sizing:border-box;
 
 <input
 id="telefonoCliente"
+oninput="actualizarBotonReserva()"
 placeholder="WhatsApp"
 style="
 width:100%;
