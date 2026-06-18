@@ -243,13 +243,6 @@ class="btn btn-whatsapp">
 </button>
 
 <button
-id="azarBtn"
-class="btn"
-style="background:#007bff;margin-left:4px;">
-    🎲 Jugar al Azar
-</button>
-
-<button
 id="limpiarBtn"
 class="btn btn-limpiar">
     Limpiar
@@ -783,102 +776,6 @@ div.style.display="block";
 }
 
 });
-
-});
-    document
-.getElementById("azarBtn")
-.addEventListener("click", ()=>{
-
-    const cantidad = prompt(
-`¿Cuántos números deseas?
-
-1
-3
-5
-10`
-    );
-
-    const opciones = [1,3,5,10];
-
-    if(
-        !opciones.includes(
-            Number(cantidad)
-        )
-    ){
-        alert(
-        "Debe elegir 1, 3, 5 o 10"
-        );
-        return;
-    }
-
-    if(
-        numerosDisponibles.length <
-        Number(cantidad)
-    ){
-        alert(
-        "No hay suficientes números disponibles"
-        );
-        return;
-    }
-
-    seleccionados = [];
-
-    document
-    .querySelectorAll(".numero")
-    .forEach(div=>{
-
-        div.classList.remove(
-            "seleccionado"
-        );
-
-    });
-
-    const copia =
-    [...numerosDisponibles];
-
-    for(
-        let i=0;
-        i<Number(cantidad);
-        i++
-    ){
-
-        const indice =
-        Math.floor(
-            Math.random() *
-            copia.length
-        );
-
-        const numero =
-        copia.splice(
-            indice,
-            1
-        )[0];
-
-        seleccionados.push(
-            numero
-        );
-
-    }
-
-    document
-    .querySelectorAll(".numero")
-    .forEach(div=>{
-
-        if(
-            seleccionados.includes(
-                div.innerText
-            )
-        ){
-
-            div.classList.add(
-                "seleccionado"
-            );
-
-        }
-
-    });
-
-    actualizarSeleccion();
 
 });
     function jugarAzar(){
