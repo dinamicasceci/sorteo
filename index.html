@@ -122,7 +122,7 @@ h1{
 }
 
 .btn-whatsapp{
-    background:#0a943d;
+    background:#25D366;
 }
 
 .btn-limpiar{
@@ -242,39 +242,13 @@ Vendidos:
         Reservar por WhatsApp
     </button>
 
-<button
-id="limpiarBtn"
-class="btn btn-limpiar">
-    Limpiar
-</button>
-
-<select
-id="cantidadAzar"
-style="
-padding:10px;
-margin-left:10px;
-border-radius:8px;
-border:1px solid #ccc;
-">
-    <option value="1">🎲 1 número</option>
-    <option value="3">🎲 3 números</option>
-    <option value="5">🎲 5 números</option>
-    <option value="10">🎲 10 números</option>
-</select>
-
-<button
-id="azarBtn"
-class="btn"
-style="
-background:#007bff;
-color:white;
-margin-left:5px;
-">
-🎲 Al azar
-</button>
+    <button
+    id="limpiarBtn"
+    class="btn btn-limpiar">
+        Limpiar
+    </button>
 
 </div>
-
 <div style="margin:20px;">
 
 <input
@@ -318,85 +292,11 @@ target="_blank">
 const whatsapp = "573124903866";
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzhLKi2XyNGb7uGoa4_hpVicvvuw8wS9PdOVwa9uWx3Z2RdVubTHp78c8M2EHVO5x2m/exec";
+"https://script.google.com/macros/s/AKfycbxGSe3aedIipLnlmgWsXfj_rTSFxVUn0gEA5YKZBNn1qPbfWFiFk0ddVKm5taDxbtki/exec";
+
 let seleccionados = [];
 let config = {};
-function seleccionarAlAzar(){
 
-   // Limpiar selección anterior
-seleccionados = [];
-
-document
-.querySelectorAll(".numero")
-.forEach(div=>{
-
-    div.classList.remove(
-        "seleccionado"
-    );
-
-});
-actualizarSeleccion();
-    // Obtener cantidad elegida
-    const cantidad =
-    Number(
-        document.getElementById(
-            "cantidadAzar"
-        ).value
-    );
-
-    // Obtener números disponibles
-    const disponibles = [];
-
-    document
-    .querySelectorAll(
-        "#numeros .numero"
-    )
-    .forEach(div => {
-
-        if(
-            div.classList.contains(
-                "disponible"
-            )
-        ){
-            disponibles.push(div);
-        }
-
-    });
-
-    if(
-        disponibles.length <
-        cantidad
-    ){
-        alert(
-        "No hay suficientes números disponibles."
-        );
-        return;
-    }
-
-    // Mezclar aleatoriamente
-    disponibles.sort(
-        () => Math.random() - 0.5
-    );
-
-    // Seleccionar
-for(
-    let i=0;
-    i<cantidad;
-    i++
-){
-
-    disponibles[i]
-    .click();
-
-}
-
-alert(
-    "🎲 Se seleccionaron " +
-    cantidad +
-    " números al azar"
-);
-
-}
 function actualizarSeleccion(){
 
     document.getElementById("seleccionados")
@@ -568,10 +468,9 @@ datos.forEach(item => {
     === "reservado"
 ){
 
-    div.className =
-    "numero reservado";
-
     vendidos++;
+
+    return; // no mostrar números vendidos
 
 }else if(
     String(item.estado)
@@ -717,7 +616,7 @@ total.toLocaleString();
 
 document.getElementById("modalReserva")
 .style.display = "flex";
-actualizarBotonReserva();
+
 return;
 
     alert(`
@@ -776,13 +675,6 @@ document
     });
 
     actualizarSeleccion();
-
-});
-    document
-.getElementById("azarBtn")
-.addEventListener("click",()=>{
-
-    seleccionarAlAzar();
 
 });
 document
@@ -927,52 +819,7 @@ window.open(
 cerrarModal();
 
 }
-    function actualizarBotonReserva(){
-
-    const nombre =
-    document.getElementById(
-        "nombreCliente"
-    ).value.trim();
-
-    const telefono =
-    document.getElementById(
-        "telefonoCliente"
-    ).value.trim();
-
-    const boton =
-    document.getElementById(
-        "btnEnviarReserva"
-    );
-
-    if(!boton){
-        return;
-    }
-
-    if(
-        nombre !== "" &&
-        telefono !== "" &&
-        seleccionados.length > 0
-    ){
-
-        boton.style.background =
-        "#00b050";
-
-        boton.style.boxShadow =
-        "0 0 12px #00b050";
-
-    }else{
-
-        boton.style.background =
-        "#c5d6cb";
-
-        boton.style.boxShadow =
-        "none";
-
-    }
-
-}
 </script>
-    
 <div id="modalReserva" style="
 display:none;
 position:fixed;
@@ -1010,7 +857,6 @@ $<span id="modalTotal"></span>
 
 <input
 id="nombreCliente"
-oninput="actualizarBotonReserva()"
 placeholder="Nombre y Apellido"
 style="
 width:100%;
@@ -1022,7 +868,6 @@ box-sizing:border-box;
 
 <input
 id="telefonoCliente"
-oninput="actualizarBotonReserva()"
 placeholder="WhatsApp"
 style="
 width:100%;
@@ -1033,17 +878,15 @@ box-sizing:border-box;
 ">
 
 <button
-id="btnEnviarReserva"
 onclick="enviarReserva()"
 style="
 width:100%;
 padding:8px;
-background:#c5d6cb;
+background:#3a8a56;
 color:white;
 border:none;
 border-radius:8px;
 font-size:14px;
-transition:0.3s;
 ">
 📲 Enviar Reserva
 </button>
@@ -1066,4 +909,4 @@ Cancelar
 </div>
 </div>
 </body>
-</html></html>
+</html>
