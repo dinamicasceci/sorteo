@@ -765,17 +765,14 @@ async function cerrarSorteo(){
     );
 
     // Solicitar reinicio al Apps Script
-    await fetch(API_URL,{
+    const respuesta = await fetch(
+        API_URL + "?accion=cerrarSorteo"
+    );
 
-    method:"POST",
+    const resultado =
+    await respuesta.json();
 
-    body:JSON.stringify({
-
-        accion:"cerrarSorteo"
-
-    })
-
-});
+    console.log(resultado);
 
     alert(
     "✅ Sorteo cerrado correctamente.\n\n" +
