@@ -237,16 +237,23 @@ Vendidos:
     </h2>
 
     <button
-    id="reservarBtn"
-    class="btn btn-whatsapp">
-        Reservar por WhatsApp
-    </button>
+id="reservarBtn"
+class="btn btn-whatsapp">
+    Reservar por WhatsApp
+</button>
 
-    <button
-    id="limpiarBtn"
-    class="btn btn-limpiar">
-        Limpiar
-    </button>
+<button
+id="azarBtn"
+class="btn"
+style="background:#007bff;margin-left:4px;">
+    🎲 Jugar al Azar
+</button>
+
+<button
+id="limpiarBtn"
+class="btn btn-limpiar">
+    Limpiar
+</button>
 
 </div>
 <div style="margin:20px;">
@@ -295,6 +302,7 @@ const API_URL =
 "https://script.google.com/macros/s/AKfycbzhLKi2XyNGb7uGoa4_hpVicvvuw8wS9PdOVwa9uWx3Z2RdVubTHp78c8M2EHVO5x2m/exec";
 let seleccionados = [];
 let config = {};
+let numerosDisponibles = [];
 
 function actualizarSeleccion(){
 
@@ -448,7 +456,7 @@ contenedor.innerHTML = "";
 
 let disponibles = 0;
 let vendidos = 0;
-
+numerosDisponibles = [];
 datos.forEach(item => {
 
             const numeroFormateado =
@@ -483,6 +491,10 @@ datos.forEach(item => {
 }else{
 
     disponibles++;
+
+    numerosDisponibles.push(
+        numeroFormateado
+    );
 
     div.className =
     "numero disponible";
@@ -727,6 +739,102 @@ div.style.display="block";
 }
 
 });
+
+});
+    document
+.getElementById("azarBtn")
+.addEventListener("click", ()=>{
+
+    const cantidad = prompt(
+`¿Cuántos números deseas?
+
+1
+3
+5
+10`
+    );
+
+    const opciones = [1,3,5,10];
+
+    if(
+        !opciones.includes(
+            Number(cantidad)
+        )
+    ){
+        alert(
+        "Debe elegir 1, 3, 5 o 10"
+        );
+        return;
+    }
+
+    if(
+        numerosDisponibles.length <
+        Number(cantidad)
+    ){
+        alert(
+        "No hay suficientes números disponibles"
+        );
+        return;
+    }
+
+    seleccionados = [];
+
+    document
+    .querySelectorAll(".numero")
+    .forEach(div=>{
+
+        div.classList.remove(
+            "seleccionado"
+        );
+
+    });
+
+    const copia =
+    [...numerosDisponibles];
+
+    for(
+        let i=0;
+        i<Number(cantidad);
+        i++
+    ){
+
+        const indice =
+        Math.floor(
+            Math.random() *
+            copia.length
+        );
+
+        const numero =
+        copia.splice(
+            indice,
+            1
+        )[0];
+
+        seleccionados.push(
+            numero
+        );
+
+    }
+
+    document
+    .querySelectorAll(".numero")
+    .forEach(div=>{
+
+        if(
+            seleccionados.includes(
+                div.innerText
+            )
+        ){
+
+            div.classList.add(
+                "seleccionado"
+            );
+
+        }
+
+    });
+
+    actualizarSeleccion();
 
 });
 cargarNumeros();
