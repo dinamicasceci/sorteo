@@ -258,6 +258,15 @@ class="btn btn-limpiar">
 </div>
 <div style="margin:20px;">
 
+<div style="
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+justify-content:center;
+align-items:center;
+margin-bottom:15px;
+">
+
 <input
 type="text"
 id="buscador"
@@ -269,9 +278,44 @@ border-radius:8px;
 border:1px solid #ccc;
 ">
 
-<br><br>
+<label style="
+font-weight:bold;
+color:#0a8f3d;
+">
+🎲 Jugar al azar:
+</label>
+
+<select
+id="azarCantidad"
+style="
+padding:10px;
+border-radius:8px;
+border:1px solid #ccc;
+width:80px;
+">
+
+<option value="1">1</option>
+<option value="3">3</option>
+<option value="5">5</option>
+<option value="10">10</option>
+
+</select>
+
+<button
+class="btn"
+onclick="jugarAzar()"
+style="background:#007bff;">
+Generar
+</button>
+
+</div>
 
 <label>
+<input
+type="checkbox"
+id="soloDisponibles">
+Mostrar solo disponibles
+</label>
 <input
 type="checkbox"
 id="soloDisponibles">
@@ -453,7 +497,7 @@ const contenedor =
 document.getElementById("numeros");
 
 contenedor.innerHTML = "";
-
+numerosDisponibles = [];
 let disponibles = 0;
 let vendidos = 0;
 numerosDisponibles = [];
@@ -837,6 +881,85 @@ div.style.display="block";
     actualizarSeleccion();
 
 });
+    function jugarAzar(){
+
+    const cantidad =
+    Number(
+        document.getElementById(
+            "azarCantidad"
+        ).value
+    );
+
+    if(
+        numerosDisponibles.length <
+        cantidad
+    ){
+        alert(
+        "No hay suficientes números disponibles"
+        );
+        return;
+    }
+
+    seleccionados = [];
+
+    document
+    .querySelectorAll(".numero")
+    .forEach(div=>{
+
+        div.classList.remove(
+            "seleccionado"
+        );
+
+    });
+
+    const copia =
+    [...numerosDisponibles];
+
+    for(
+        let i=0;
+        i<cantidad;
+        i++
+    ){
+
+        const indice =
+        Math.floor(
+            Math.random() *
+            copia.length
+        );
+
+        const numero =
+        copia.splice(
+            indice,
+            1
+        )[0];
+
+        seleccionados.push(
+            numero
+        );
+
+    }
+
+    document
+    .querySelectorAll(".numero")
+    .forEach(div=>{
+
+        if(
+            seleccionados.includes(
+                div.innerText
+            )
+        ){
+
+            div.classList.add(
+                "seleccionado"
+            );
+
+        }
+
+    });
+
+    actualizarSeleccion();
+
+}
 cargarNumeros();
 
 setInterval(
