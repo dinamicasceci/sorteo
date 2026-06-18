@@ -376,9 +376,21 @@ document.getElementById("premio3")
 .value =
 configuracion.premio3 || "";
 
-document.getElementById("fecha_sorteo")
-.value =
-configuracion.fecha_sorteo || "";
+if(configuracion.fecha_sorteo){
+
+    document.getElementById(
+        "fecha_sorteo"
+    ).value =
+    String(configuracion.fecha_sorteo)
+    .substring(0,16);
+
+}else{
+
+    document.getElementById(
+        "fecha_sorteo"
+    ).value = "";
+
+}
 
 document.getElementById("loteria")
 .value =
@@ -387,7 +399,6 @@ configuracion.loteria || "";
 document.getElementById("imagen_fondo")
 .value =
 configuracion.imagen_fondo || "";
-
 const contenedor =
 document.getElementById("numeros");
 
