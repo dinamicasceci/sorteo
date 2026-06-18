@@ -333,23 +333,18 @@ if(clave !== "123"){
 /* CAMBIA ESTA URL */
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzhLKi2XyNGb7uGoa4_hpVicvvuw8wS9PdOVwa9uWx3Z2RdVubTHp78c8M2EHVO5x2m/exec";
-alert("ADMIN NUEVO CARGADO");
- let configuracion = {};
+"https://script.google.com/macros/s/AKfycbxGSe3aedIipLnlmgWsXfj_rTSFxVUn0gEA5YKZBNn1qPbfWFiFk0ddVKm5taDxbtki/exec";
+
+let configuracion = {};
 
 async function cargarDatos(){
 
 const respuesta =
 await fetch(API_URL);
- 
-alert("API respondió: " + respuesta.status);
- 
+
 const resultado =
 await respuesta.json();
- 
-console.log(resultado);
-alert("Datos recibidos");
- 
+
 const datos =
 resultado.numeros;
 
@@ -376,21 +371,9 @@ document.getElementById("premio3")
 .value =
 configuracion.premio3 || "";
 
-if(configuracion.fecha_sorteo){
-
-    document.getElementById(
-        "fecha_sorteo"
-    ).value =
-    String(configuracion.fecha_sorteo)
-    .substring(0,16);
-
-}else{
-
-    document.getElementById(
-        "fecha_sorteo"
-    ).value = "";
-
-}
+document.getElementById("fecha_sorteo")
+.value =
+configuracion.fecha_sorteo || "";
 
 document.getElementById("loteria")
 .value =
@@ -399,6 +382,7 @@ configuracion.loteria || "";
 document.getElementById("imagen_fondo")
 .value =
 configuracion.imagen_fondo || "";
+
 const contenedor =
 document.getElementById("numeros");
 
@@ -539,27 +523,27 @@ estado
 
     }
 
-    const respuesta = await fetch(API_URL,{
+    await fetch(API_URL,{
 
-    method:"POST",
+        method:"POST",
 
-    body:JSON.stringify({
+        body:JSON.stringify({
 
-        accion:"actualizarNumero",
+            accion:"actualizarNumero",
 
-        numero:numero,
+            numero:numero,
 
-        estado:nuevoEstado,
+            estado:nuevoEstado,
 
-        nombre:nombre,
+            nombre:nombre,
 
-        telefono:telefono
+            telefono:telefono
 
-    })
+        })
 
-});
+    });
 
-cargarDatos();
+    cargarDatos();
 
 }
 
@@ -776,15 +760,22 @@ async function cerrarSorteo(){
     );
 
     // Solicitar reinicio al Apps Script
- alert(API_URL + "?accion=cerrarSorteo");
-    const respuesta = await fetch(
-    API_URL + "?PRUEBA=123456"
-);
+    await fetch(API_URL,{
 
-const resultado =
-await respuesta.json();
+        method:"POST",
 
-alert(JSON.stringify(resultado));
+        body:JSON.stringify({
+
+            accion:"cerrarSorteo"
+
+        })
+
+    });
+
+    alert(
+    "✅ Sorteo cerrado correctamente.\n\n" +
+    "Se creó el historial y ya está lista la nueva rifa."
+    );
 
     cargarDatos();
 
