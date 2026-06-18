@@ -778,18 +778,13 @@ async function cerrarSorteo(){
     // Solicitar reinicio al Apps Script
  alert(API_URL + "?accion=cerrarSorteo");
     const respuesta = await fetch(
-        API_URL + "?accion=cerrarSorteo"
-    );
+    API_URL + "?PRUEBA=123456"
+);
 
-    const resultado =
-    await respuesta.json();
+const resultado =
+await respuesta.json();
 
-    console.log(resultado);
-
-    alert(
-    "✅ Sorteo cerrado correctamente.\n\n" +
-    "Se creó el historial y ya está lista la nueva rifa."
-    );
+alert(JSON.stringify(resultado));
 
     cargarDatos();
 
