@@ -340,10 +340,15 @@ async function cargarDatos(){
 
 const respuesta =
 await fetch(API_URL);
-
+ 
+alert("API respondió: " + respuesta.status);
+ 
 const resultado =
 await respuesta.json();
-
+ 
+console.log(resultado);
+alert("Datos recibidos");
+ 
 const datos =
 resultado.numeros;
 
