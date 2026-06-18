@@ -765,6 +765,7 @@ async function cerrarSorteo(){
     );
 
     // Solicitar reinicio al Apps Script
+ alert(API_URL + "?accion=cerrarSorteo");
     const respuesta = await fetch(
         API_URL + "?accion=cerrarSorteo"
     );
