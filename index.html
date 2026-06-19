@@ -852,34 +852,34 @@ $${total.toLocaleString()}
 ⏰ Entiendo que dispongo de 20 minutos para enviar el comprobante de pago.
 `;
 
-for(const numero of seleccionados){
-
-await fetch(API_URL,{
-
-method:"POST",
-
-body:JSON.stringify({
-
-accion:"actualizarNumero",
-
-numero:numero,
-
-estado:"Pendiente",
-
-nombre:nombre,
-
-telefono:telefono
-
-})
-
-});
-
-}
-
 window.open(
 `https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`,
 "_blank"
 );
+
+for(const numero of seleccionados){
+
+    fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            accion:"actualizarNumero",
+
+            numero:numero,
+
+            estado:"Pendiente",
+
+            nombre:nombre,
+
+            telefono:telefono
+
+        })
+
+    });
+
+}
 
 cerrarModal();
 
