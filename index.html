@@ -626,7 +626,8 @@ console.log("Vendidos:", vendidos);
 document
 .getElementById("reservarBtn")
 .addEventListener("click", async ()=>{
-        if(
+
+    if(
         seleccionados.length === 0
     ){
         alert(
@@ -636,53 +637,23 @@ document
     }
 
     const total =
-seleccionados.length * 2000;
+    seleccionados.length * 2000;
 
-document.getElementById("modalNumeros")
-.innerText =
-seleccionados.join(", ");
+    document.getElementById("modalNumeros")
+    .innerText =
+    seleccionados.join(", ");
 
-document.getElementById("modalTotal")
-.innerText =
-total.toLocaleString();
+    document.getElementById("modalTotal")
+    .innerText =
+    total.toLocaleString();
 
-document.getElementById("modalReserva")
-.style.display = "flex";
+    document.getElementById("modalReserva")
+    .style.display = "flex";
 
-return;
+    return;
 
-    alert(`
-✅ Números apartados para reserva.
-
-⏰ Tienes 20 minutos para realizar el pago.
-
-Si el pago no es confirmado dentro de ese tiempo, los números podrán ser liberados.
-
-📲 Serás dirigido a WhatsApp para finalizar tu reserva.
-`);
-for(const numero of seleccionados){
-
-    await fetch(API_URL,{
-
-        method:"POST",
-
-        body:JSON.stringify({
-
-            accion:"actualizarNumero",
-
-            numero:numero,
-
-            estado:"Pendiente",
-
-            nombre:nombre,
-
-            telefono:telefono
-
-        })
-
-    });
-
-}
+});
+    
  window.open(
 `https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`,
 "_blank"
@@ -998,7 +969,7 @@ style="
 width:100%;
 padding:12px;
 background:#dc3545;
-color:white;
+color:white;window.open(
 border:none;
 border-radius:8px;
 ">
