@@ -654,10 +654,6 @@ document
 
 });
     
- window.open(
-`https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`,
-"_blank"
-);
 document
 .getElementById("limpiarBtn")
 .addEventListener("click",()=>{
@@ -698,8 +694,6 @@ div.style.display="none";
 }
 
 });
-
-})
     function jugarAzar(){
 const fechaSorteo =
 new Date(config.fecha_sorteo);
