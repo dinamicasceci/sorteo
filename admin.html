@@ -780,7 +780,7 @@ async function cerrarSorteo(){
     cargarDatos();
 
 }
- function generarInvitacion(){
+ async function generarInvitacion(){
 
     const nombre =
     document.getElementById(
@@ -812,47 +812,84 @@ async function cerrarSorteo(){
         "loteria"
     ).value;
 
-    const ventana =
-    window.open(
-        "",
-        "_blank"
-    );
+    const imagen =
+    document.createElement("div");
 
-    ventana.document.write(`
-    <html>
-    <head>
-    <title>Invitación</title>
-    </head>
-    <body style="
-        font-family:Arial;
-        text-align:center;
-        padding:40px;
-        background:#6f1ab1;
-        color:white;
-    ">
-        <h1>🎉 ${nombre}</h1>
+    imagen.style.width = "800px";
+    imagen.style.height = "1200px";
+    imagen.style.background =
+    "linear-gradient(135deg,#6f1ab1,#0a8f3d)";
+    imagen.style.color = "white";
+    imagen.style.padding = "50px";
+    imagen.style.boxSizing = "border-box";
+    imagen.style.textAlign = "center";
+    imagen.style.fontFamily = "Arial";
+    imagen.style.position = "fixed";
+    imagen.style.left = "-9999px";
 
-        <h2>TE INVITAMOS A PARTICIPAR</h2>
+    imagen.innerHTML = `
+        <h1 style="font-size:55px;">
+            🎉 ${nombre}
+        </h1>
 
-        <h3>🎲 ${loteria}</h3>
+        <h2>
+            TE INVITAMOS A PARTICIPAR
+        </h2>
 
-        <p>📅 ${fecha}</p>
+        <h2>
+            🎲 ${loteria}
+        </h2>
+
+        <p style="font-size:30px;">
+            📅 ${fecha}
+        </p>
 
         <hr>
 
         <h2>PREMIOS</h2>
 
-        <p>🥇 $${Number(premio1).toLocaleString()}</p>
-        <p>🥈 $${Number(premio2).toLocaleString()}</p>
-        <p>🥉 $${Number(premio3).toLocaleString()}</p>
+        <p style="font-size:35px;">
+            🥇 $${Number(premio1).toLocaleString()}
+        </p>
 
-        <h3>
-        📲 Reserva tu número ahora
-        </h3>
+        <p style="font-size:35px;">
+            🥈 $${Number(premio2).toLocaleString()}
+        </p>
 
-    </body>
-    </html>
-    `);
+        <p style="font-size:35px;">
+            🥉 $${Number(premio3).toLocaleString()}
+        </p>
+
+        <br><br>
+
+        <h2>
+            📲 Reserva tu número ahora
+        </h2>
+    `;
+
+    document.body.appendChild(
+        imagen
+    );
+
+    const canvas =
+    await html2canvas(imagen);
+
+    const link =
+    document.createElement("a");
+
+    link.download =
+    "Invitacion_Dinamicas_Ceci.png";
+
+    link.href =
+    canvas.toDataURL(
+        "image/png"
+    );
+
+    link.click();
+
+    document.body.removeChild(
+        imagen
+    );
 
 }
 </script>
