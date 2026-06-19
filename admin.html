@@ -981,26 +981,43 @@ async function cerrarSorteo(){
 
     <body>
 
-    <h1>🎉 ${nombre}</h1>
+<div class="contenedor">
 
-    <h2>🎲 ${loteria}</h2>
+<h1 style="font-size:60px;">
+🎉 ${nombre}
+</h1>
 
-    <p>📅 ${fecha}</p>
+    <h2 style="font-size:42px;">
+🎲 ${loteria}
+</h2>
 
-    <hr>
+<p style="font-size:28px;">
+📅 ${fecha}
+</p>
 
-    <h2>PREMIOS</h2>
+<hr>
 
-    <p>🥇 $${Number(premio1).toLocaleString()}</p>
-    <p>🥈 $${Number(premio2).toLocaleString()}</p>
-    <p>🥉 $${Number(premio3).toLocaleString()}</p>
+<h2 style="font-size:38px;">
+🏆 PREMIOS
+</h2>
 
+<p style="font-size:32px;">
+🥇 $${Number(premio1).toLocaleString()}
+</p>
+
+<p style="font-size:32px;">
+🥈 $${Number(premio2).toLocaleString()}
+</p>
+
+<p style="font-size:32px;">
+🥉 $${Number(premio3).toLocaleString()}
+</p>
     <br>
 
     <a href="${urlSorteo}" class="btn">
         📲 RESERVAR MI NÚMERO
     </a>
-
+</div>
     </body>
 
     </html>
