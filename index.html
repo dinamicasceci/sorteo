@@ -303,18 +303,6 @@ Generar
 
 </div>
 
-<label>
-<input
-type="checkbox"
-id="soloDisponibles">
-Mostrar solo disponibles
-</label>
-<input
-type="checkbox"
-id="soloDisponibles">
- Mostrar solo disponibles
-</label>
-
 </div>
 <div id="numeros" class="grid"></div>
 
@@ -747,37 +735,7 @@ div.style.display="none";
 
 });
 
-});document
-.getElementById("soloDisponibles")
-.addEventListener("change",function(){
-
-const activo =
-this.checked;
-
-document
-.querySelectorAll(".numero")
-.forEach(div=>{
-
-if(!activo){
-
-div.style.display="block";
-return;
-
-}
-
-if(
-div.classList.contains(
-"reservado"
-)
-){
-div.style.display="none";
-}else{
-div.style.display="block";
-}
-
-});
-
-});
+})
     function jugarAzar(){
 
     const cantidad =
