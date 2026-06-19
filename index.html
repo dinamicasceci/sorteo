@@ -165,7 +165,7 @@ font-weight:bold;
 color:#dc3545;
 margin:10px 0;
 ">
-Cargando contador...
+🏆 Sorteo: <span id="fechaEvento">Cargando fecha...</span>
 </div>
 <div
 id="mensajeSorteo"
@@ -362,13 +362,35 @@ console.log(datos);
 
 config =
 resultado.configuracion;
-if(
-    config.mostrar_contador === "SI"
-){
 const fecha =
 new Date(
     config.fecha_sorteo
 );
+
+document.getElementById(
+    "fechaEvento"
+).innerText =
+fecha.toLocaleDateString(
+    "es-CO",
+    {
+        weekday:"long",
+        day:"numeric",
+        month:"long",
+        year:"numeric"
+    }
+) +
+" - " +
+fecha.toLocaleTimeString(
+    "es-CO",
+    {
+        hour:"2-digit",
+        minute:"2-digit"
+    }
+);
+
+if(
+    config.mostrar_contador === "SI"
+){
 
 const ahora =
 new Date();
