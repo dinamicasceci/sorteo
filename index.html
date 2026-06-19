@@ -839,20 +839,17 @@ seleccionados.length *
 (config.valor_numero || 2000);
 
 let mensaje =
-`Hola.
-
-👤 Nombre: ${nombre}
+`Buen día, yo ${nombre}.
 
 📱 WhatsApp: ${telefono}
 
-Deseo reservar los siguientes números:
-
-🎟️ ${seleccionados.join(", ")}
+🎟️ Números:
+${seleccionados.join(", ")}
 
 💰 Total:
 $${total.toLocaleString()}
 
-⏰ Entiendo que la reserva es temporal y dispongo de 20 minutos para enviar el comprobante de pago.
+⏰ Entiendo que dispongo de 20 minutos para enviar el comprobante de pago.
 `;
 
 for(const numero of seleccionados){
