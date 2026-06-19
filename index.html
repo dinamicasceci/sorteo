@@ -683,8 +683,10 @@ for(const numero of seleccionados){
     });
 
 }
-    window.open( https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}, "_blank" ); });
-
+ window.open(
+`https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`,
+"_blank"
+);
 document
 .getElementById("limpiarBtn")
 .addEventListener("click",()=>{
