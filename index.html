@@ -683,9 +683,8 @@ for(const numero of seleccionados){
     });
 
 }
-    window.open(
-        `https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`,
-        "_blank"
+    window.location.href =
+`https://wa.me/${whatsapp}?text=${encodeURIComponent(mensaje)}`;
     );
 
 });
