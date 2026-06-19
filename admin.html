@@ -273,8 +273,14 @@ Disponibles:
         <br><br>
 
         <button onclick="guardarConfig()">
-        💾 Guardar Configuración
-        </button>
+    💾 Guardar Configuración
+</button>
+
+<br><br>
+
+<button onclick="generarInvitacion()">
+    📢 Generar Imagen Promocional
+</button>
 
     </div>
 
@@ -772,6 +778,81 @@ async function cerrarSorteo(){
     );
 
     cargarDatos();
+
+}
+ function generarInvitacion(){
+
+    const nombre =
+    document.getElementById(
+        "nombre_rifa"
+    ).value;
+
+    const fecha =
+    document.getElementById(
+        "fecha_sorteo"
+    ).value;
+
+    const premio1 =
+    document.getElementById(
+        "premio1"
+    ).value;
+
+    const premio2 =
+    document.getElementById(
+        "premio2"
+    ).value;
+
+    const premio3 =
+    document.getElementById(
+        "premio3"
+    ).value;
+
+    const loteria =
+    document.getElementById(
+        "loteria"
+    ).value;
+
+    const ventana =
+    window.open(
+        "",
+        "_blank"
+    );
+
+    ventana.document.write(`
+    <html>
+    <head>
+    <title>Invitación</title>
+    </head>
+    <body style="
+        font-family:Arial;
+        text-align:center;
+        padding:40px;
+        background:#6f1ab1;
+        color:white;
+    ">
+        <h1>🎉 ${nombre}</h1>
+
+        <h2>TE INVITAMOS A PARTICIPAR</h2>
+
+        <h3>🎲 ${loteria}</h3>
+
+        <p>📅 ${fecha}</p>
+
+        <hr>
+
+        <h2>PREMIOS</h2>
+
+        <p>🥇 $${Number(premio1).toLocaleString()}</p>
+        <p>🥈 $${Number(premio2).toLocaleString()}</p>
+        <p>🥉 $${Number(premio3).toLocaleString()}</p>
+
+        <h3>
+        📲 Reserva tu número ahora
+        </h3>
+
+    </body>
+    </html>
+    `);
 
 }
 </script>
