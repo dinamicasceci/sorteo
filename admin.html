@@ -729,12 +729,16 @@ async function exportarPDF(){
 doc.save(
     "Compras_Dinamicas_Ceci.pdf"
 );
+
+} // <-- ESTA LLAVE FALTABA
+
 cargarDatos();
 
 setInterval(
-cargarDatos,
-30000
+    cargarDatos,
+    30000
 );
+
 async function cerrarSorteo(){
 
     const confirmar =
@@ -749,25 +753,17 @@ async function cerrarSorteo(){
         return;
     }
 
-    // Generar PDF automáticamente
     exportarPDF();
 
-    // Esperar un momento para que inicie la descarga
     await new Promise(r =>
         setTimeout(r,1500)
     );
 
-    // Solicitar reinicio al Apps Script
     await fetch(API_URL,{
-
         method:"POST",
-
         body:JSON.stringify({
-
             accion:"cerrarSorteo"
-
         })
-
     });
 
     alert(
@@ -777,6 +773,7 @@ async function cerrarSorteo(){
 
     cargarDatos();
 
+}
 }
 </script>
 
