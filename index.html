@@ -737,7 +737,28 @@ div.style.display="none";
 
 })
     function jugarAzar(){
+const fechaSorteo =
+new Date(config.fecha_sorteo);
 
+const cierreVentas =
+new Date(
+    fechaSorteo.getTime() -
+    (
+        Number(
+            config.cierre_ventas_minutos || 20
+        ) * 60000
+    )
+);
+
+if(new Date() >= cierreVentas){
+
+    alert(
+    "🔒 Las ventas están cerradas.\n\n" +
+    "El sorteo está próximo a comenzar."
+    );
+
+    return;
+}
     const cantidad =
     Number(
         document.getElementById(
