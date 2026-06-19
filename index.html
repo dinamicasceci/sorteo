@@ -167,6 +167,16 @@ margin:10px 0;
 ">
 🏆 Sorteo: <span id="fechaEvento">Cargando fecha...</span>
 </div>
+    <div
+id="loteriaSorteo"
+style="
+font-size:16px;
+font-weight:bold;
+color:#198754;
+margin-bottom:10px;
+">
+🎲 Juega con: Cargando...
+</div>
 <div
 id="mensajeSorteo"
 style="
@@ -387,7 +397,15 @@ fecha.toLocaleTimeString(
         minute:"2-digit"
     }
 );
+if(config.loteria){
 
+    document.getElementById(
+        "loteriaSorteo"
+    ).innerText =
+    "🎲 Juega con: " +
+    config.loteria;
+
+}
 if(
     config.mostrar_contador === "SI"
 ){
