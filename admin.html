@@ -726,11 +726,11 @@ async function exportarPDF(){
 
     });
 
-    doc.save(
-        "Compras_Dinamicas_Ceci.pdf"
-    );
-
-}
+doc.save(
+    "Rifa_Ceci_" +
+    new Date().toISOString().slice(0,10) +
+    ".pdf"
+);
 cargarDatos();
 
 setInterval(
