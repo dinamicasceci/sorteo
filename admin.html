@@ -820,7 +820,8 @@ async function cerrarSorteo(){
 
     const imagen =
     document.createElement("div");
-
+imagen.style.position = "relative";
+imagen.style.overflow = "hidden";
     imagen.style.width = "800px";
     imagen.style.height = "1200px";
     const fondo =
@@ -832,24 +833,14 @@ console.log("FONDO:", fondo);
 
 if(fondo){
 
-    alert("Entró al IF");
-
-    imagen.style.backgroundImage =
-    `url('${fondo}')`;
-
-    imagen.style.backgroundImage =
-    `url('${fondo}')`;
-
-    imagen.style.backgroundSize =
-    "cover";
-
-    imagen.style.backgroundPosition =
-    "center";
-
-    imagen.style.backgroundRepeat =
-    "no-repeat";
+  // imagen.innerHTML = "";
 
 }else{
+
+    imagen.style.background =
+    "linear-gradient(135deg,#6f1ab1,#0a8f3d)";
+
+}
 
     imagen.style.background =
     "linear-gradient(135deg,#6f1ab1,#0a8f3d)";
