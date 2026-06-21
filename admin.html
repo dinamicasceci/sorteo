@@ -858,47 +858,12 @@ if(fondo){
     imagen.style.position = "fixed";
     imagen.style.left = "-9999px";
 
-    imagen.innerHTML = `
-        <h1 style="font-size:55px;">
-            🎉 ${nombre}
-        </h1>
+imagen.style.position = "fixed";
+imagen.style.left = "-9999px";
 
-        <h2>
-            TE INVITAMOS A PARTICIPAR
-        </h2>
+imagen.innerHTML = "";
 
-        <h2>
-            🎲 ${loteria}
-        </h2>
-
-        <p style="font-size:30px;">
-            📅 ${fecha}
-        </p>
-
-        <hr>
-
-        <h2>PREMIOS</h2>
-
-        <p style="font-size:35px;">
-            🥇 $${Number(premio1).toLocaleString()}
-        </p>
-
-        <p style="font-size:35px;">
-            🥈 $${Number(premio2).toLocaleString()}
-        </p>
-
-        <p style="font-size:35px;">
-            🥉 $${Number(premio3).toLocaleString()}
-        </p>
-
-        <br><br>
-
-        <h2>
-            📲 Reserva tu número ahora
-        </h2>
-    `;
-
-    document.body.appendChild(
+document.body.appendChild(
     imagen
 );
 
