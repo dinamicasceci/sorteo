@@ -823,8 +823,31 @@ async function cerrarSorteo(){
 
     imagen.style.width = "800px";
     imagen.style.height = "1200px";
+    const fondo =
+document.getElementById(
+    "imagen_fondo"
+).value;
+
+if(fondo){
+
+    imagen.style.backgroundImage =
+    `url('${fondo}')`;
+
+    imagen.style.backgroundSize =
+    "cover";
+
+    imagen.style.backgroundPosition =
+    "center";
+
+    imagen.style.backgroundRepeat =
+    "no-repeat";
+
+}else{
+
     imagen.style.background =
     "linear-gradient(135deg,#6f1ab1,#0a8f3d)";
+
+}
     imagen.style.color = "white";
     imagen.style.padding = "50px";
     imagen.style.boxSizing = "border-box";
