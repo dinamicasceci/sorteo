@@ -897,14 +897,19 @@ if(fondo){
     `;
 
     document.body.appendChild(
-        imagen
-    );
+    imagen
+);
 
-    const canvas =
-    await html2canvas(imagen);
+const canvas =
+await html2canvas(
+    imagen,
+    {
+        useCORS:true
+    }
+);
 
-    const link =
-    document.createElement("a");
+const link =
+document.createElement("a");
 
     link.download =
     "Invitacion_Dinamicas_Ceci.png";
