@@ -830,7 +830,6 @@ document.getElementById(
 ).value;
 alert("FONDO = " + fondo);
 console.log("FONDO:", fondo);
-
 if(fondo){
 
     imagen.style.backgroundImage =
@@ -850,6 +849,7 @@ if(fondo){
     imagen.style.background =
     "linear-gradient(135deg,#6f1ab1,#0a8f3d)";
 }
+
 imagen.innerHTML = `
 <div style="
 position:absolute;
@@ -888,52 +888,41 @@ font-weight:bold;
 
 </div>
 `;
-    imagen.style.background =
-    "linear-gradient(135deg,#6f1ab1,#0a8f3d)";
-
-}
-    imagen.style.color = "white";
-    imagen.style.padding = "50px";
-    imagen.style.boxSizing = "border-box";
-    imagen.style.textAlign = "center";
-    imagen.style.fontFamily = "Arial";
-    imagen.style.position = "fixed";
-    imagen.style.left = "-9999px";
-
+imagen.style.color = "white";
+imagen.style.padding = "50px";
+imagen.style.boxSizing = "border-box";
+imagen.style.textAlign = "center";
+imagen.style.fontFamily = "Arial";
 imagen.style.position = "fixed";
 imagen.style.left = "-9999px";
 
-imagen.innerHTML = "";
-
-document.body.appendChild(
-    imagen
-);
+document.body.appendChild(imagen);
 
 const canvas =
 await html2canvas(
     imagen,
     {
-        useCORS:true
+        useCORS:true,
+        scale:2
     }
 );
 
 const link =
 document.createElement("a");
 
-    link.download =
-    "Invitacion_Dinamicas_Ceci.png";
+link.download =
+"Invitacion_Dinamicas_Ceci.png";
 
-    link.href =
-    canvas.toDataURL(
-        "image/png"
-    );
+link.href =
+canvas.toDataURL(
+    "image/png"
+);
 
-    link.click();
+link.click();
 
-    document.body.removeChild(
-        imagen
-    );
-
+document.body.removeChild(
+    imagen
+);
 }
  function generarInvitacionWeb(){
 
