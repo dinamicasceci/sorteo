@@ -385,7 +385,7 @@ configuracion.premio3 || "";
 
 document.getElementById("fecha_sorteo")
 .value =
-configuracion.fecha_sorteo || "";
+(configuracion.fecha_sorteo || "").substring(0,16);
 
 document.getElementById("loteria")
 .value =
