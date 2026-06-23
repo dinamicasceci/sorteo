@@ -827,7 +827,9 @@ imagen.style.overflow = "hidden";
     const fondo =
 document.getElementById(
     "imagen_fondo"
-).value;
+).value.trim();
+
+alert("Fondo actual: " + fondo);
 alert("FONDO = " + fondo);
 console.log("FONDO:", fondo);
 if(fondo){
