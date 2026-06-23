@@ -834,24 +834,56 @@ alert("FONDO REAL:\n" + fondo);
 console.log("FONDO REAL:", fondo);
 if(fondo){
 
-    imagen.style.backgroundImage =
-    `url('${fondo}')`;
+    imagen.innerHTML = `
+        <img
+            src="${fondo}"
+            style="
+                position:absolute;
+                top:0;
+                left:0;
+                width:100%;
+                height:100%;
+                object-fit:cover;
+            "
+        >
 
-    imagen.style.backgroundSize =
-    "cover";
+        <div style="
+            position:absolute;
+            top:80px;
+            left:40px;
+            right:40px;
+            text-align:center;
+            color:white;
+            font-family:Arial;
+            text-shadow:2px 2px 6px black;
+        ">
+            <h1 style="font-size:50px;">${nombre}</h1>
 
-    imagen.style.backgroundPosition =
-    "center";
+            <h2 style="font-size:30px;">
+                🎲 ${loteria}
+            </h2>
 
-    imagen.style.backgroundRepeat =
-    "no-repeat";
+            <p style="font-size:26px;">
+                📅 ${fecha}
+            </p>
+
+            <div style="
+                margin-top:450px;
+                font-size:32px;
+                font-weight:bold;
+            ">
+                <p>🥇 $${Number(premio1).toLocaleString()}</p>
+                <p>🥈 $${Number(premio2).toLocaleString()}</p>
+                <p>🥉 $${Number(premio3).toLocaleString()}</p>
+            </div>
+        </div>
+    `;
 
 }else{
 
     imagen.style.background =
     "linear-gradient(135deg,#6f1ab1,#0a8f3d)";
 }
-
 imagen.innerHTML = `
 <div style="
 position:absolute;
