@@ -455,7 +455,12 @@ document.querySelector("#tablaCompras tbody");
 tbody.innerHTML = "";
 
 datos.forEach(item => {
-
+console.log(
+"Número:",
+item.numero,
+"Estado:",
+item.estado
+);
     if(
         String(item.estado).toLowerCase() === "reservado"
         ||
