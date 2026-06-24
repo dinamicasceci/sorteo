@@ -474,12 +474,15 @@ datos.forEach(item => {
     <td>
         ${
             String(item.estado).toLowerCase() === "pendiente"
-            ?
-            `<button onclick="confirmarPago('${String(item.numero).padStart(2,"0")}')">
-            ✅ Confirmar
-            </button>`
-            :
-            "✔"
+?
+`<button onclick="confirmarPago('${String(item.numero).padStart(2,"0")}')">
+✅ Confirmar
+</button>`
+:
+`<button onclick="liberarNumero('${String(item.numero).padStart(2,"0")}')"
+style="background:#dc3545;">
+↩ Liberar
+</button>`
         }
     </td>
 `;
@@ -585,7 +588,43 @@ async function confirmarPago(numero){
 cargarDatos();
 
 }
+async function liberarNumero(numero){
 
+    if(
+        !confirm(
+        "¿Liberar el número " +
+        numero + "?"
+        )
+    ){
+        return;
+    }
+
+    await fetch(API_URL,{
+
+        method:"POST",
+
+        body:JSON.stringify({
+
+            accion:"actualizarNumero",
+
+            numero:numero,
+
+            estado:"Disponible",
+
+            nombre:"",
+            telefono:""
+
+        })
+
+    });
+
+    alert(
+    "✅ Número liberado"
+    );
+
+    cargarDatos();
+
+}
 async function guardarConfig(){
 
 const config = {
