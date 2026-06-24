@@ -225,9 +225,9 @@ Disponibles:
         <h2>🎰 Sorteo y Apariencia</h2>
 
         <label>📅 Fecha y Hora del Sorteo</label>
-        <input
-        id="fecha_sorteo"
-        type="datetime-local">
+<input
+id="fecha_sorteo"
+placeholder="Ej: 25 de Junio de 2026 - 6:30 PM">
 
         <label>🎰 Lotería del Sorteo</label>
         <select id="loteria">
@@ -374,7 +374,7 @@ configuracion.premio3 || "";
 
 document.getElementById("fecha_sorteo")
 .value =
-(configuracion.fecha_sorteo || "").substring(0,16);
+configuracion.fecha_sorteo || "";
 
 document.getElementById("loteria")
 .value =
