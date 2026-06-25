@@ -223,10 +223,15 @@ Disponibles:
 
         <h2>🎰 Sorteo y Apariencia</h2>
 
-      <label>📅 Fecha y Hora del Sorteo</label>
+<label>📅 Fecha del Sorteo</label>
 <input
 id="fecha_sorteo"
-placeholder="Ej: 25 de Junio de 2026 - 6:30 PM">
+placeholder="Ej: 26 de Junio de 2026">
+
+<label>🕒 Hora del Sorteo</label>
+<input
+id="hora_sorteo"
+placeholder="Ej: 7:30 PM">
 
         <label>🎰 Lotería del Sorteo</label>
         <select id="loteria">
@@ -376,6 +381,9 @@ configuracion.fecha_sorteo || "";
 
 document.getElementById("fecha_sorteo").value =
 String(fechaSorteo);
+ 
+ document.getElementById("hora_sorteo").value =
+configuracion.hora_sorteo || "";
  
 console.log(
 "fecha_sorteo recibido:",
@@ -678,7 +686,12 @@ fecha_sorteo:
 document.getElementById(
 "fecha_sorteo"
 ).value,
-
+ 
+hora_sorteo:
+document.getElementById(
+"hora_sorteo"
+).value,
+ 
 loteria:
 document.getElementById(
 "loteria"
@@ -845,6 +858,11 @@ async function cerrarSorteo(){
         "fecha_sorteo"
     ).value;
 
+  const hora =
+document.getElementById(
+    "hora_sorteo"
+).value;
+  
     const premio1 =
     document.getElementById(
         "premio1"
@@ -911,8 +929,12 @@ if(fondo){
             </h2>
 
             <p style="font-size:26px;">
-                📅 ${fecha}
-            </p>
+    📅 ${fecha}
+</p>
+
+<p style="font-size:26px;">
+    🕒 ${hora}
+</p>
 
             <div style="
                 margin-top:450px;
@@ -952,7 +974,11 @@ ${nombre}
 </h2>
 
 <p style="font-size:26px;">
-📅 ${fecha}
+    📅 ${fecha}
+</p>
+
+<p style="font-size:26px;">
+    🕒 ${hora}
 </p>
 
 <div style="
@@ -1016,6 +1042,11 @@ document.body.removeChild(
     document.getElementById(
         "fecha_sorteo"
     ).value;
+  
+  const hora =
+document.getElementById(
+    "hora_sorteo"
+).value;
 
     const premio1 =
     document.getElementById(
@@ -1112,6 +1143,10 @@ p{
 
 <p>
 📅 ${fecha}
+</p>
+
+<p>
+🕒 ${hora}
 </p>
 
 <hr>
