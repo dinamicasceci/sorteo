@@ -226,12 +226,12 @@ Disponibles:
 <label>📅 Fecha del Sorteo</label>
 <input
 id="fecha_sorteo"
-placeholder="Ej: 26 de Junio de 2026">
+type="date">
 
 <label>🕒 Hora del Sorteo</label>
 <input
 id="hora_sorteo"
-placeholder="Ej: 7:30 PM">
+type="time">
 
         <label>🎰 Lotería del Sorteo</label>
         <select id="loteria">
@@ -380,9 +380,9 @@ const fechaSorteo =
 configuracion.fecha_sorteo || "";
 
 document.getElementById("fecha_sorteo").value =
-String(fechaSorteo);
- 
- document.getElementById("hora_sorteo").value =
+configuracion.fecha_sorteo || "";
+
+document.getElementById("hora_sorteo").value =
 configuracion.hora_sorteo || "";
  
 console.log(
@@ -683,14 +683,10 @@ document.getElementById(
 ).value,
 
 fecha_sorteo:
-document.getElementById(
-"fecha_sorteo"
-).value,
- 
+document.getElementById("fecha_sorteo").value,
+
 hora_sorteo:
-document.getElementById(
-"hora_sorteo"
-).value,
+document.getElementById("hora_sorteo").value,
  
 loteria:
 document.getElementById(
