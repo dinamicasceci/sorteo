@@ -371,10 +371,21 @@ document.getElementById("premio3")
 .value =
 configuracion.premio3 || "";
 
-document.getElementById("fecha_sorteo")
-.value =
+const fechaSorteo =
 configuracion.fecha_sorteo || "";
 
+document.getElementById("fecha_sorteo").value =
+String(fechaSorteo);
+ 
+console.log(
+"fecha_sorteo recibido:",
+configuracion.fecha_sorteo
+);
+
+console.log(
+"tipo:",
+typeof configuracion.fecha_sorteo
+);
 document.getElementById("loteria")
 .value =
 configuracion.loteria || "";
