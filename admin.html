@@ -385,15 +385,11 @@ configuracion.fecha_sorteo || "";
 document.getElementById("hora_sorteo").value =
 configuracion.hora_sorteo || "";
  
-console.log(
-"fecha_sorteo recibido:",
-configuracion.fecha_sorteo
-);
+console.log("Configuración completa:", configuracion);
 
-console.log(
-"tipo:",
-typeof configuracion.fecha_sorteo
-);
+console.log("Fecha recibida:", configuracion.fecha_sorteo);
+
+console.log("Hora recibida:", configuracion.hora_sorteo);
 document.getElementById("loteria")
 .value =
 configuracion.loteria || "";
