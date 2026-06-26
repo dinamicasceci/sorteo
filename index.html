@@ -177,6 +177,16 @@ margin-bottom:10px;
 ">
 🎲 Juega con: Cargando...
 </div>
+    <div
+id="horaSorteo"
+style="
+font-size:16px;
+font-weight:bold;
+color:#0d6efd;
+margin-bottom:10px;
+">
+🕒 Hora del Sorteo: Cargando...
+</div>
 <div
 id="mensajeSorteo"
 style="
@@ -380,18 +390,22 @@ const fecha = new Date(
     fechaTexto.replace("Z","")
 );
 
+// Solo la fecha
 document.getElementById("fechaEvento").innerText =
 fecha.toLocaleDateString("es-CO", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric"
-}) +
-" - " +
+    weekday:"long",
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+});
+
+// Hora aparte
+document.getElementById("horaSorteo").innerText =
+"🕒 Hora del Sorteo: " +
 fecha.toLocaleTimeString("es-CO", {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true
+    hour:"2-digit",
+    minute:"2-digit",
+    hour12:true
 });
 if(config.loteria){
 
