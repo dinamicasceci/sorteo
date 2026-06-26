@@ -385,10 +385,9 @@ resultado.configuracion;
         console.log("Configuración:", config);
 console.log("Fecha recibida:", config.fecha_sorteo);
 const fechaTexto = config.fecha_sorteo || "";
+const horaTexto = config.hora_sorteo || "00:00";
 
-const fecha = new Date(
-    fechaTexto.replace("Z","")
-);
+const fecha = new Date(fechaTexto);
 
 // Solo la fecha
 document.getElementById("fechaEvento").innerText =
