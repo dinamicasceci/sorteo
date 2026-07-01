@@ -385,29 +385,23 @@ resultado.configuracion;
         console.log("Configuración:", config);
 console.log("Fecha recibida:", config.fecha_sorteo);
 const fechaTexto = config.fecha_sorteo || "";
-const horaTexto = config.hora_sorteo || "00:00";
+const horaTexto = config.hora_sorteo || "";
 
-const fecha = new Date(
-    fechaTexto + "T" + horaTexto
-);
-
-// Solo la fecha
 document.getElementById("fechaEvento").innerText =
-fecha.toLocaleDateString("es-CO", {
-    weekday:"long",
-    day:"numeric",
-    month:"long",
-    year:"numeric"
-});
+fechaTexto;
 
-// Hora aparte
 document.getElementById("horaSorteo").innerText =
-"🕒 Hora del Sorteo: " +
-fecha.toLocaleTimeString("es-CO", {
-    hour:"2-digit",
-    minute:"2-digit",
-    hour12:true
-});
+"🕒 Hora del Sorteo: " + horaTexto;
+
+if(config.loteria){
+
+    document.getElementById(
+        "loteriaSorteo"
+    ).innerText =
+    "🎲 Juega con: " +
+    config.loteria;
+
+}
 if(config.loteria){
 
     document.getElementById(
