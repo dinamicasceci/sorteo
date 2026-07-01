@@ -376,11 +376,31 @@ document.getElementById("premio3")
 .value =
 configuracion.premio3 || "";
 
-document.getElementById("fecha_sorteo").value =
+const fechaSorteo =
 configuracion.fecha_sorteo || "";
 
-document.getElementById("hora_sorteo").value =
-configuracion.hora_sorteo || "";
+let fecha = configuracion.fecha_sorteo || "";
+let hora = configuracion.hora_sorteo || "";
+
+// Convertir fecha ISO a yyyy-MM-dd
+if (fecha.includes("T")) {
+    fecha = fecha.substring(0, 10);
+}
+
+// Convertir hora ISO a HH:mm
+if (hora.includes("T")) {
+    hora = hora.substring(11, 16);
+}
+
+document.getElementById("fecha_sorteo").value = fecha;
+document.getElementById("hora_sorteo").value = hora;
+ 
+console.log("Configuración completa:", configuracion);
+
+console.log("Fecha recibida:", configuracion.fecha_sorteo);
+
+console.log("Hora recibida:", configuracion.hora_sorteo);
+document.getElementById("loteria")
 .value =
 configuracion.loteria || "";
 
@@ -644,41 +664,61 @@ async function guardarConfig(){
 const config = {
 
 nombre_rifa:
-document.getElementById("nombre_rifa").value.trim(),
+document.getElementById(
+"nombre_rifa"
+).value,
 
 valor_numero:
-document.getElementById("valor_numero").value.trim(),
+document.getElementById(
+"valor_numero"
+).value,
 
 premio1:
-document.getElementById("premio1").value.trim(),
+document.getElementById(
+"premio1"
+).value,
 
 premio2:
-document.getElementById("premio2").value.trim(),
+document.getElementById(
+"premio2"
+).value,
 
 premio3:
-document.getElementById("premio3").value.trim(),
+document.getElementById(
+"premio3"
+).value,
 
 fecha_sorteo:
-document.getElementById("fecha_sorteo").value,
+document.getElementById(
+"fecha_sorteo"
+).value,
 
 hora_sorteo:
-document.getElementById("hora_sorteo").value,
-
+document.getElementById(
+"hora_sorteo"
+).value,
+ 
 loteria:
-document.getElementById("loteria").value.trim(),
+document.getElementById(
+"loteria"
+).value,
 
 imagen_fondo:
-document.getElementById("imagen_fondo").value.trim()
+document.getElementById(
+"imagen_fondo"
+).value
 
 };
+console.log("Fecha:", document.getElementById("fecha_sorteo").value);
+console.log("Hora:", document.getElementById("hora_sorteo").value);
 
+alert(
+"Fecha: " + document.getElementById("fecha_sorteo").value +
+"\nHora: " + document.getElementById("hora_sorteo").value
+);
 await fetch(API_URL,{
 
 method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
 
 body:JSON.stringify({
 
@@ -690,9 +730,7 @@ config:config
 
 });
 
-alert("✅ Configuración guardada correctamente.");
-
-await cargarDatos();
+alert("Configuración guardada");
 
 }
 
