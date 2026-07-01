@@ -376,21 +376,11 @@ configuracion.premio3 || "";
 const fechaSorteo =
 configuracion.fecha_sorteo || "";
 
-let fecha = configuracion.fecha_sorteo || "";
-let hora = configuracion.hora_sorteo || "";
+document.getElementById("fecha_sorteo").value =
+configuracion.fecha_sorteo || "";
 
-// Convertir fecha ISO a yyyy-MM-dd
-if (fecha.includes("T")) {
-    fecha = fecha.substring(0, 10);
-}
-
-// Convertir hora ISO a HH:mm
-if (hora.includes("T")) {
-    hora = hora.substring(11, 16);
-}
-
-document.getElementById("fecha_sorteo").value = fecha;
-document.getElementById("hora_sorteo").value = hora;
+document.getElementById("hora_sorteo").value =
+configuracion.hora_sorteo || "";
  
 console.log("Configuración completa:", configuracion);
 
